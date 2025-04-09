@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+  <div style="max-width: 400px; margin: 50px auto; padding: 2rem; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); background-color: #f9f9f9;">
+    <h2 style="text-align: center; margin-bottom: 20px;">Login to Your Account</h2>
+    
+    {% if form.errors %}
+      <div style="color: red; margin-bottom: 15px;">
+        <strong>There was a problem with your login:</strong>
+        <ul>
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+          {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <form method="post" style="display: flex; flex-direction: column; gap: 10px;">
+      {% csrf_token %}
+      <label for="{{ form.username.id_for_label }}">Username:</label>
+      {{ form.username }}
+
+      <label for="{{ form.password.id_for_label }}">Password:</label>
+      {{ form.password }}
+
+      <button type="submit" style="padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        Login
+      </button>
+    </form>
+
+    
+  </div>
+{% endblock %}
